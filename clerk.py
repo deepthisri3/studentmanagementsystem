@@ -1,4 +1,35 @@
-import utils
+import csv
+import os
+
+FILENAME = "students.csv"
+
+# === UC1: Add Student ===
+def add_student():
+    roll = input("Enter Roll No: ")
+    # Check duplicate
+    with open(FILENAME, "r") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row and row[0] == roll:
+                print("❌ Roll number already exists!")
+                return
+
+    name = input("Enter Name: ")
+    branch = input("Enter Branch: ")
+    year = input("Enter Year: ")
+    gender = input("Enter Gender: ")
+    age = input("Enter Age: ")
+    attendance = input("Enter Attendance %: ")
+    mid1 = input("Enter Mid1 Marks: ")
+    mid2 = input("Enter Mid2 Marks: ")
+    quiz = input("Enter Quiz Marks: ")
+    final = input("Enter Final Marks: ")
+
+    with open(FILENAME, "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([roll, name, branch, year, gender, age, attendance, mid1, mid2, quiz, final])
+
+    print("✅ Student added successfully!")
 
 def clerk_menu():
     while True:
@@ -10,9 +41,9 @@ def clerk_menu():
         choice = input("Enter choice: ")
 
         if choice == "1":
-            utils.add_student()
+            add_student()
         elif choice == "2":
-            utils.delete_student()
+            delete_student()
         elif choice == "0":
             break
         else:
